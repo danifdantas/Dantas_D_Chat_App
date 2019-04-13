@@ -17,12 +17,23 @@ const vm = new Vue({
     socketID: "",
     nickname: "",
     message: "",
-    messages: []
+    messages: [],
+    users: []
   },
   methods: {
+    saveUser() {
+      // this.users.push(this.nickname);
+      socket.emit('nickname', this.nickname);
+      let chat = document.querySelector('#chat');
+      chat.classList.remove('hidden');
+      let login = document.querySelector('#login');
+      login.style.display = "none";
+    },
     dispatchMessage() {
+      var d = new Date();
+      var time = '[' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds() + '] ';
       // emit message event from the client side if nickname is nothing set it to anonymous
-      socket.emit('chat message', { content: this.message, name: this.nickname || "Anonymous" });
+      socket.emit('chat message', { content: this.message, name: time + this.nickname || "Anonymous" });
       //reset the message field
       this.message = "";
     }

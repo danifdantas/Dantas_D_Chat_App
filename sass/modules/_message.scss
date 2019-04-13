@@ -1,18 +1,58 @@
-.new-message { 
-    span { font-size: 0.8rem; display: block; margin-bottom: 2px; }
+.new-message {
+  span {
+    font-size: 0.8rem;
+    display: block;
+    margin-bottom: 2px;
+  }
 
-    width: 45%;
-    padding: 8px 12px;
-    background-color: white; 
-    border-radius: 8px;
-    margin-bottom: 1rem;
+  width: 45%;
+  padding: 8px 12px;
+  background-color: $accent-color;
+  border-radius: 8px;
+  position:relative;
+  margin-bottom: 1rem;
+  color:#757575;
+  float:left;
+  clear: both;
 
-    float:left;
-    clear: both;
+  &:after {
+    content: '';
+    content: "";
+    position: absolute;
+    right: 40px;
+    transform: rotate(-135deg);
+    top: 50%;
+    width: 0;
+    height: 0;
+    border: 20px solid transparent;
+    border-left-color: $accent-color;
+    border-right: 0;
+    border-bottom: 0;
+    margin-top: -9px;
+    margin-right: -50px;
+  }
 }
 
 .my-message {
-    float: right !important;
-    background-color: #86bf9d;
-    color: white;
+  float: right !important;
+  background-color: #86bf9d;
+  color: white;
+  position: relative;
+
+  &:after {
+    content: "";
+    position: absolute;
+    left: -9px;
+    transform: rotate(45deg);
+    top: 50%;
+    width: 0;
+    height: 0;
+    border: 18px solid transparent;
+    border-left-color: #86bf9d;
+    border-right: 0;
+    border-bottom: 0;
+    margin-top: -9px;
+    margin-right: -50px;
+
+  }
 }

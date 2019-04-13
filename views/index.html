@@ -3,29 +3,57 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Socket IO Chat with Node!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Chatin'</title>
   <link rel="stylesheet" href="css/main.css">
   <script src="https://unpkg.com/vue"></script>
 </head>
 
 <body>
-  <main id="app">
-    <section class="form-container">
-      <label for="nickname">Your Nickname (optional)</label>
-      <input v-model="nickname" type="text" id="nickname" class="nickname" placeholder="What is your nickname?">
+  <header>
+    <div class="header-container">
+      <h1>Get Chatin'</h1>
+      <p>The best way to meet people!</p>
+    </div>
+  </header>
+  <main id="app" class="flex-column">
+    <section id="login" class="flex">
+      <div class="container">
+        <h2>Get Started</h2>
+        <form action="" id="loginForm">
+          <!-- <input type="text" name="username" id="username" placeholder="username" > -->
 
-      <form>
-        <label for="message">Something to say?</label>
-        <textarea v-model="message" class="message" type="text" autocomplete="off" id="textarea"></textarea>
-        <input type="submit" @click.prevent="dispatchMessage">
-      </form>
+          <input v-model="nickname" type="text" id="nickname" class="nickname" placeholder="What is your nickname?">
+          <button id="loginBtn" @click.prevent="saveUser">Chat!</button>
+        </form>
+      </div>
     </section>
 
-    <section class="messages">
-      <ul id="messages" v-for="message in messages">
-        <newmessage :msg="message"></newmessage>
-      </ul>
+    <section id="chat" class="container hidden">
+      <section class="users">
+        <div v-for="user in users">
+          <p>{{user}} just joined the chat</p>
+        </div>
+      </section>
+
+      <section class="messages">
+        <ul id="messages" v-for="message in messages">
+          <newmessage :msg="message"></newmessage>
+
+        </ul>
+      </section>
+
+      <section class="form-container">
+        <form>
+          <textarea v-model="message" class="message" type="text" autocomplete="off" id="textarea"
+            placeholder="Write Your Message Here"></textarea>
+
+          <button class="btn" type="submit" @click.prevent="dispatchMessage">Send</button>
+        </form>
+      </section>
     </section>
+
   </main>
   <script src="/socket.io/socket.io.js"> </script>
   <script type="module" src="js/main_vm.js">
