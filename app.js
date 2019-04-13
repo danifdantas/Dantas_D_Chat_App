@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var io = require('socket.io')();
-
+var clients = [];
 const port = process.env.PORT || 3000;
 
 //tel express where our static files are -> js, images, css
@@ -19,8 +19,13 @@ io.attach(server);
 // socket.io chat app 
 
 io.on('connection', function (socket) {
-  console.log('a user has connected');
+  console.log(socket.id + ' has connected');
   socket.emit('connected', { sID: `${socket.id}`, message: 'new connection' });
+  socket.on('nickname', function (username) {
+    clients.push(username);
+    console.log(clients);
+    io.emit('nickname', { clients });
+  })
   // listen to an incoming message from nayone connected to the app
   socket.on('chat message', function (msg) {
     console.log('message: ', msg, 'socket: ', socket.id);
@@ -28,9 +33,9 @@ io.on('connection', function (socket) {
     //send the message to everyone connected to the app
     io.emit('chat message', { id: `${socket.id}`, message: msg });
   })
-  socket.set('nickname', 'Guest');
+
 
   socket.on('disconnect', function () {
-    console.log('a user has disconnected');
+    console.log(socket.id + ' disconnected');
   })
 })

@@ -9,8 +9,22 @@ function logConnect({ sID, message }) {
 
 function appendMessage(message) {
   vm.messages.push(message);
+  console.log(message);
 }
+function saveUsers(users) {
+  console.log(users.clients);
+  for (let i = 0; i < users.clients.length; i++) {
+    const user = users.clients[i];
+    console.log(user);
+    vm.users.push(user);
 
+  }
+  // var user = users.clients.splice(users.clients.length - 1);
+  // console.log(user[0]);
+
+  // vm.users.push(user[0]);
+
+}
 // create Vue instance
 const vm = new Vue({
   data: {
@@ -45,4 +59,5 @@ const vm = new Vue({
 
 socket.on('connected', logConnect);
 socket.addEventListener('chat message', appendMessage);
+socket.addEventListener('nickname', saveUsers);
 socket.addEventListener('disconnect', appendMessage);
