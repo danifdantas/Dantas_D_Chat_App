@@ -28,6 +28,7 @@ io.on('connection', function (socket) {
     //send the message to everyone connected to the app
     io.emit('chat message', { id: `${socket.id}`, message: msg });
   })
+  socket.set('nickname', 'Guest');
 
   socket.on('disconnect', function () {
     console.log('a user has disconnected');
